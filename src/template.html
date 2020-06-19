@@ -9,6 +9,7 @@
 </head>
 <body>
 	<a href="https://tak-emi.github.io/threejs_sample/">戻る</a><br>
+	<canvas id="canvas"></canvas>
 	<script>
 		const width = 500;
 		const height = 300;
@@ -24,10 +25,11 @@
 		var axesHelper = new THREE.AxesHelper( 1000 );
 		scene.add( axesHelper );
 
-		var renderer = new THREE.WebGLRenderer();
+		var renderer = new THREE.WebGLRenderer({
+				canvas: document.querySelector("#canvas")
+			});
 		renderer.setSize( width, height );
 		renderer.setClearColor(0xaaaaaa);
-		document.body.appendChild( renderer.domElement );
 
 		const camController = new THREE.OrbitControls(camera, renderer.domElement);
 		camController.update();
