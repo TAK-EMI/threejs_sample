@@ -52,11 +52,8 @@
 			wireModel.name = 'wireframe';
 			group.add(wireModel);
 
-			const pGeo = new THREE.BufferGeometry();
-			const vertex = faceModel.geometry.vertices.slice();
-			pGeo.attributes.position = new THREE.Float32BufferAttribute(vertex.map(vert => vert.toArray()).flat(), 3);
 			const pointModel = new THREE.Points(
-				pGeo,
+				new THREE.BufferGeometry().setFromPoints(faceModel.geometry.vertices),
 				new THREE.PointsMaterial({
 					size: 5,
 					color: 0x000000,
