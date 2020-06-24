@@ -11,6 +11,7 @@ https://tak-emi.github.io/threejs_sample/
 - [選択と移動](./src/select_transform.html)
 - [3次Bezier曲線](./src/cubic_bazier.html)
 - [ファイルロード(obj)](./src/file_load_obj.html)
+- [一面図](./src/one_view.html)
 
 
 
