@@ -6,6 +6,7 @@
 	<title>一面図</title>
 	<script src="../lib/three.min.js"></script>
 	<script src="../lib/js/loaders/OBJLoader.js"></script>
+	<script src="../lib/js/controls/OrbitControls.js"></script>
 </head>
 <body>
 	<a href="https://tak-emi.github.io/threejs_sample/">戻る</a><br>
@@ -16,34 +17,6 @@
 	<script>
 		var camera;
 		var elCanvas = document.querySelector("#canvas");
-	</script>
-	<script>
-		var mousePos = new THREE.Vector3();
-		var mouseDown = false;
-		elCanvas.addEventListener('mousedown', (event) => {
-			mouseDown = true;
-
-			var rect = elCanvas.getBoundingClientRect();
-
-			mousePos.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-			mousePos.y = - ((event.clientY - rect.top) / rect.height) * 2 + 1;
-		}, false);
-		elCanvas.addEventListener('mousemove', (event) => {
-			if(mouseDown) {
-				var rect = elCanvas.getBoundingClientRect();
-
-				var pos = new THREE.Vector3();
-				pos.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-				pos.y = - ((event.clientY - rect.top) / rect.height) * 2 + 1;
-
-				var vec = pos.sub(mousePos);
-				camera.translateOnAxis(vec, 1);
-				mousePos = pos;
-			}
-		}, false);
-		elCanvas.addEventListener('mouseup', (event) => {
-			mouseDown = false;
-		}, false);
 	</script>
 	<script>
 		const group = new THREE.Group();
@@ -87,7 +60,7 @@
 		const height = 300;
 
 		camera = new THREE.OrthographicCamera(width / -2, width / 2, height / 2, height / -2, -100, 1000);
-		camera.position.set(10, 10, 10);
+		// camera.position.set(10, 10, 10);
 
 		var gridHelper = new THREE.GridHelper( width * 100, 1000 );
 		gridHelper.rotateX(Math.PI / 2);
@@ -107,10 +80,16 @@
 		renderer.setSize( width, height );
 		renderer.setClearColor(0xaaaaaa);
 
+		var orbit = new THREE.MapControls(camera, elCanvas);
+		orbit.screenSpacePanning = true;
+		orbit.update();
+
 		initModel();
 
 		function animate() {
 			requestAnimationFrame( animate );
+
+			orbit.update();
 
 			renderer.render( scene, camera );
 		}
