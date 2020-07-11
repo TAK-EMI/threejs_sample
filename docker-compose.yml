@@ -1,0 +1,11 @@
+version: "3"
+services:
+  node:
+    image: node:lts-alpine
+    container_name: node
+    tty: true
+    volumes:
+      - .:/node
+    working_dir: /node
+    ports:
+      - 3000:3000
