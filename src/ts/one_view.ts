@@ -27,7 +27,7 @@ function initModel()
 	};
 
 	new OBJLoader(manager)
-		.setPath('https://tak-emi.github.io/threejs_sample/obj/teapot/')
+		.setPath('obj/teapot/')
 		.load('teapot.obj', object => {
 
 			var wire = new THREE.LineSegments(

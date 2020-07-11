@@ -23,14 +23,14 @@ function initModel()
 	var onError = () => {};
 
 	new MTLLoader(manager)
-		.setPath('https://tak-emi.github.io/threejs_sample/obj/teapot/')
+		.setPath('obj/teapot/')
 		.load('default.mtl', materials => {
 
 			materials.preload();
 
 			new OBJLoader(manager)
 				.setMaterials(materials)
-				.setPath('https://tak-emi.github.io/threejs_sample/obj/teapot/')
+				.setPath('obj/teapot/')
 				.load('teapot.obj', object => {
 
 					object.scale.set(0.1, 0.1, 0.1);
