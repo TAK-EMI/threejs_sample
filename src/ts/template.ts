@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function Setup(width: number, height: number)
 {
-	let elCanvas = document.querySelector("#canvas");
+	let elCanvas = document.querySelector("#canvas") as HTMLCanvasElement;
 	if(!elCanvas) {
 		return;
 	}
@@ -24,7 +24,7 @@ function Setup(width: number, height: number)
 	scene.add( axesHelper );
 
 	var renderer = new THREE.WebGLRenderer({
-			canvas: elCanvas as HTMLCanvasElement
+			canvas: elCanvas
 		});
 	renderer.setSize( width, height );
 	renderer.setClearColor(0xaaaaaa);
