@@ -3,13 +3,15 @@
 		"eslint:recommended",
 		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
-		"plugin:prettier/recommended",
-		"prettier/@typescript-eslint"
+		"prettier/@typescript-eslint",
+		"prettier"
 	],
 	"plugins": [
-		"@typescript-eslint"
+		"@typescript-eslint",
+		"prettier"
 	],
 	"env": {
+		"browser": true,
 		"node": true,
 		"es6": true
 	},
@@ -18,5 +20,15 @@
 		"sourceType": "module",
 		"project": "./tsconfig.json"
 	},
-	"rules": {}
+	"rules": {
+		"prettier/prettier": ["error", {
+			"printWidth": 120,
+			"singleQuote": true,
+			"semi": true,
+			"useTabs": true,
+			"trailingComma": "es5"
+		}],
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": ["warn"]
+	}
 }

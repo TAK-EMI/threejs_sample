@@ -17,7 +17,16 @@ module.exports = {
 		rules: [
 			{
 				test: /\.ts$/,
-				use: "ts-loader"
+				enforce: 'pre',
+				exclude: /node_modules/,
+				loader: 'eslint-loader',
+				options: {
+					fix: true
+				}
+			},
+			{
+				test: /\.ts$/,
+				loader: "ts-loader"
 			}
 		]
 	},

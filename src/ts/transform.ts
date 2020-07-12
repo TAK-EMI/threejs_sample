@@ -1,40 +1,37 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 
 window.addEventListener('DOMContentLoaded', () => {
 	Setup(500, 300);
 });
 
-var scene = new THREE.Scene();
-var control: TransformControls | null = null;
+const scene = new THREE.Scene();
+let control: TransformControls | null = null;
 
 function update() {
 	const elTranslate = document.querySelector('#translate') as HTMLInputElement;
 	const elRotate = document.querySelector('#rotate') as HTMLInputElement;
 	const elScale = document.querySelector('#scale') as HTMLInputElement;
 
-	if(!control || !elTranslate || !elRotate || !elScale) {
+	if (!control || !elTranslate || !elRotate || !elScale) {
 		return;
 	}
 
 	if (elTranslate.checked === true) {
-		control.setMode("translate");
+		control.setMode('translate');
 	} else if (elRotate.checked === true) {
-		control.setMode("rotate");
+		control.setMode('rotate');
 	} else if (elScale.checked === true) {
-		control.setMode("scale");
+		control.setMode('scale');
 	}
 }
 function initBox() {
-	if(!control) {
+	if (!control) {
 		return;
 	}
 
-	const box = new THREE.Mesh(
-		new THREE.BoxGeometry(5, 5, 5),
-		new THREE.MeshLambertMaterial({ color: 0x800080 })
-	);
+	const box = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5), new THREE.MeshLambertMaterial({ color: 0x800080 }));
 
 	scene.add(box);
 
@@ -46,10 +43,9 @@ function initBox() {
 	return;
 }
 
-function Setup(width: number, height: number)
-{
-	let elCanvas = document.querySelector("#canvas") as HTMLCanvasElement;
-	if(!elCanvas) {
+function Setup(width: number, height: number) {
+	const elCanvas = document.querySelector('#canvas') as HTMLCanvasElement;
+	if (!elCanvas) {
 		return;
 	}
 
@@ -57,7 +53,7 @@ function Setup(width: number, height: number)
 	const elRotate = document.querySelector('#rotate') as HTMLInputElement;
 	const elScale = document.querySelector('#scale') as HTMLInputElement;
 
-	if(!elTranslate || !elRotate || !elScale) {
+	if (!elTranslate || !elRotate || !elScale) {
 		return;
 	}
 
@@ -65,14 +61,14 @@ function Setup(width: number, height: number)
 	elRotate.onclick = update;
 	elScale.onclick = update;
 
-	var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
+	const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
 
 	camera.position.set(10, 10, 10);
 
-	var gridHelper = new THREE.GridHelper(100, 100);
+	const gridHelper = new THREE.GridHelper(100, 100);
 	scene.add(gridHelper);
 
-	var axesHelper = new THREE.AxesHelper(1000);
+	const axesHelper = new THREE.AxesHelper(1000);
 	scene.add(axesHelper);
 
 	const light = new THREE.DirectionalLight(0xffffff);
@@ -80,8 +76,8 @@ function Setup(width: number, height: number)
 	light.position.set(2, 2, 1);
 	scene.add(light);
 
-	var renderer = new THREE.WebGLRenderer({
-		canvas: elCanvas
+	const renderer = new THREE.WebGLRenderer({
+		canvas: elCanvas,
 	});
 	renderer.setSize(width, height);
 	renderer.setClearColor(0xaaaaaa);

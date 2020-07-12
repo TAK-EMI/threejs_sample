@@ -6,17 +6,14 @@ window.addEventListener('DOMContentLoaded', () => {
 	Setup(500, 300);
 });
 
-var dragCtrl;
-var scene = new THREE.Scene();
-var ctrlBox:Array<THREE.Mesh> = [];
-var bezier: THREE.Line;
+let dragCtrl;
+const scene = new THREE.Scene();
+const ctrlBox: Array<THREE.Mesh> = [];
+let bezier: THREE.Line;
 
 function initBezier() {
-	for(let i=0; i<4; ++i) {
-		ctrlBox[i] = new THREE.Mesh(
-				new THREE.BoxGeometry(1, 1, 1),
-				new THREE.MeshLambertMaterial({ color: 0x800080 })
-			);
+	for (let i = 0; i < 4; ++i) {
+		ctrlBox[i] = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshLambertMaterial({ color: 0x800080 }));
 		scene.add(ctrlBox[i]);
 	}
 	ctrlBox[0].position.set(-10, 0, 10);
@@ -24,7 +21,7 @@ function initBezier() {
 	ctrlBox[2].position.set(5, 10, -5);
 	ctrlBox[3].position.set(10, 0, -10);
 
-	let curve = new THREE.CubicBezierCurve3(
+	const curve = new THREE.CubicBezierCurve3(
 		ctrlBox[0].position,
 		ctrlBox[1].position,
 		ctrlBox[2].position,
@@ -32,27 +29,26 @@ function initBezier() {
 	);
 	bezier = new THREE.Line(
 		new THREE.BufferGeometry().setFromPoints(curve.getPoints(50)),
-		new THREE.LineBasicMaterial({color: 0x0000ff})
+		new THREE.LineBasicMaterial({ color: 0x0000ff })
 	);
 	scene.add(bezier);
 
 	return;
 }
 
-function Setup(width: number, height: number)
-{
-	let elCanvas = document.querySelector("#canvas") as HTMLCanvasElement;
-	if(!elCanvas) {
+function Setup(width: number, height: number) {
+	const elCanvas = document.querySelector('#canvas') as HTMLCanvasElement;
+	if (!elCanvas) {
 		return;
 	}
 
-	var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
+	const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
 	camera.position.set(10, 10, 10);
 
-	var grid = new THREE.GridHelper(100, 100);
+	const grid = new THREE.GridHelper(100, 100);
 	scene.add(grid);
 
-	var axis = new THREE.AxesHelper(1000);
+	const axis = new THREE.AxesHelper(1000);
 	scene.add(axis);
 
 	const light = new THREE.DirectionalLight(0xffffff);
@@ -60,8 +56,8 @@ function Setup(width: number, height: number)
 	light.position.set(2, 2, 1);
 	scene.add(light);
 
-	var renderer = new THREE.WebGLRenderer({
-		canvas: elCanvas
+	const renderer = new THREE.WebGLRenderer({
+		canvas: elCanvas,
 	});
 	renderer.setSize(width, height);
 	renderer.setClearColor(0xaaaaaa);
@@ -72,11 +68,11 @@ function Setup(width: number, height: number)
 	initBezier();
 
 	dragCtrl = new DragControls(ctrlBox, camera, elCanvas);
-	dragCtrl.addEventListener('dragstart', event => {
+	dragCtrl.addEventListener('dragstart', (event) => {
 		orbit.enabled = false;
 		event.object.material.emissive.set(0xaaaaaa);
 	});
-	dragCtrl.addEventListener('dragend', event => {
+	dragCtrl.addEventListener('dragend', (event) => {
 		event.object.material.emissive.set(0x000000);
 		orbit.enabled = true;
 	});
@@ -84,15 +80,23 @@ function Setup(width: number, height: number)
 	function animate() {
 		requestAnimationFrame(animate);
 
-		let curve = new THREE.CubicBezierCurve3(
+		const curve = new THREE.CubicBezierCurve3(
 			ctrlBox[0].position,
 			ctrlBox[1].position,
 			ctrlBox[2].position,
 			ctrlBox[3].position
 		);
 
-		let geo = bezier.geometry as THREE.BufferGeometry;
-		geo.attributes.position = new THREE.BufferAttribute(new Float32Array(curve.getPoints(50).map(p => p.toArray()).flat()), 3);
+		const geo = bezier.geometry as THREE.BufferGeometry;
+		geo.attributes.position = new THREE.BufferAttribute(
+			new Float32Array(
+				curve
+					.getPoints(50)
+					.map((p) => p.toArray())
+					.flat()
+			),
+			3
+		);
 
 		orbit.update();
 
@@ -100,5 +104,4 @@ function Setup(width: number, height: number)
 	}
 
 	animate();
-
 }
