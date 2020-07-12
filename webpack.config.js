@@ -7,7 +7,8 @@ module.exports = {
 		select_transform: "./src/ts/select_transform.ts",
 		cubic_bezier: "./src/ts/cubic_bezier.ts",
 		file_load_obj: "./src/ts/file_load_obj.ts",
-		one_view: "./src/ts/one_view.ts"
+		one_view: "./src/ts/one_view.ts",
+		select_vertex: "./src/ts/select_vertex.ts"
 	},
 	output: {
 		path: `${__dirname}/docs/js`,

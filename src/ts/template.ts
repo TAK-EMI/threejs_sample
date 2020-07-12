@@ -22,6 +22,11 @@ function Setup(width: number, height: number) {
 	const axesHelper = new THREE.AxesHelper(1000);
 	scene.add(axesHelper);
 
+	const light = new THREE.DirectionalLight(0xffffff);
+	light.intensity = 2;
+	light.position.set(2, 2, 1);
+	scene.add(light);
+
 	const renderer = new THREE.WebGLRenderer({
 		canvas: elCanvas,
 	});
